@@ -1,0 +1,62 @@
+<div *ngIf="isModalVisible" class="modal-overlay" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+        <span class="close-btn" (click)="closeModal()">×</span>
+        
+        <!-- Modal Header -->
+        <div class="modal-header">
+            <h2>{{ isLogin ? 'Login' : 'Sign Up' }}</h2>
+            <p>{{ isLogin ? 'Enter your credentials to login.' : 'Create an account to get started.' }}</p>
+        </div>
+
+        <!-- Form -->
+        <form (ngSubmit)="submitForm()" class="modal-form">
+
+            <!-- Username Field -->
+            <div class="input-group">
+                <label for="username">Username</label>
+                <div class="input-wrapper">
+                    <input type="text" id="username" [(ngModel)]="userData.username" name="username" required />
+                    <i class="input-icon fas fa-user"></i>
+                </div>
+            </div>
+
+            <!-- Email Field (Visible only for signup) -->
+            <div *ngIf="!isLogin" class="input-group">
+                <label for="email">Email</label>
+                <div class="input-wrapper">
+                    <input type="email" id="email" [(ngModel)]="userData.email" name="email" required />
+                    <i class="input-icon fas fa-envelope"></i>
+                </div>
+            </div>
+
+            <!-- Password Field -->
+            <div class="input-group">
+                <label for="password">Password</label>
+                <div class="input-wrapper">
+                    <input type="password" id="password" [(ngModel)]="userData.password" name="password" required />
+                    <i class="input-icon fas fa-lock"></i>
+                </div>
+            </div>
+
+            <!-- Confirm Password Field (Visible only for signup) -->
+            <div *ngIf="!isLogin" class="input-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <div class="input-wrapper">
+                    <input type="password" id="confirmPassword" [(ngModel)]="userData.confirmPassword" name="confirmPassword" required />
+                    <i class="input-icon fas fa-lock"></i>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="submit-btn">{{ isLogin ? 'Login' : 'Sign Up' }}</button>
+
+            <!-- Error Message -->
+            <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+
+            <!-- Toggle Link -->
+            <p (click)="toggleModal()" class="toggle-link">
+                {{ isLogin ? 'Don\'t have an account? Sign Up' : 'Already have an account? Log In' }}
+            </p>
+        </form>
+    </div>
+</div>
