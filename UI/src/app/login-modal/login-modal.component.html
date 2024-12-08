@@ -37,6 +37,11 @@
                     <i class="input-icon fas fa-lock"></i>
                 </div>
             </div>
+            <div class="input-group" *ngIf="isLogin">
+                <div>
+                    <a href="#">forgot password?</a>
+                </div>
+            </div>
 
             <!-- Confirm Password Field (Visible only for signup) -->
             <div *ngIf="!isLogin" class="input-group">
@@ -48,15 +53,23 @@
             </div>
 
             <!-- Submit Button -->
-            <button type="submit" class="submit-btn">{{ isLogin ? 'Login' : 'Sign Up' }}</button>
+            <button type="submit" class="submit-btn" (click)="goToCourseList()">{{ isLogin ? 'Login' : 'Sign Up' }}</button>
 
             <!-- Error Message -->
             <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
 
             <!-- Toggle Link -->
-            <p (click)="toggleModal()" class="toggle-link">
-                {{ isLogin ? 'Don\'t have an account? Sign Up' : 'Already have an account? Log In' }}
-            </p>
+            <p>
+                <ng-container *ngIf="isLogin; else signUpTemplate">
+                  Don't have an account?
+                  <span class="signup-toggle toggle-link" (click)="toggleModal()">Sign Up</span>
+                </ng-container>
+                <ng-template #signUpTemplate>
+                  Already have an account?
+                  <span class="signup-toggle toggle-link" (click)="toggleModal()">Log In</span>
+                </ng-template>
+              </p>
+              
         </form>
     </div>
 </div>

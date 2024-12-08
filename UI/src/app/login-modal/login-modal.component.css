@@ -125,6 +125,9 @@
   transform: translateY(1px);
 }
 
+.signup-toggle {
+  color: red;
+}
 /* Forgot password link */
 .forgot-password {
   text-align: center;

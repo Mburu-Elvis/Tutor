@@ -1,1 +1,111 @@
-<p>course-list works!</p>
+<div>
+  <app-navbar></app-navbar>
+  <div class="course-catalog">
+      <!-- Hero Section -->
+     
+
+      <!-- Filters and Sorting -->
+      <header class="catalog-header">
+        <div class="search-and-filter">
+          <input 
+            type="text" 
+            placeholder="Search courses by title, topic, or instructor..." 
+            [(ngModel)]="searchQuery"
+            (ngModelChange)="onSearch()"
+            class="search-bar"
+          />
+          <select 
+            [(ngModel)]="selectedCategory"
+            (ngModelChange)="filterCourses()"
+            class="filter-category"
+          >
+            <option value="">All Categories</option>
+            <option *ngFor="let category of categories" [value]="category">
+              {{ category }}
+            </option>
+          </select>
+          <select 
+            [(ngModel)]="selectedLevel"
+            (ngModelChange)="filterCourses()"
+            class="filter-difficulty"
+          >
+            <option value="">All Levels</option>
+            <option *ngFor="let level of levels" [value]="level">
+              {{ level }}
+            </option>
+          </select>
+          <select 
+            [(ngModel)]="selectedSort"
+            (ngModelChange)="sortCourses()"
+            class="sort-courses"
+          >
+            <option value="">Sort by</option>
+            <option value="price">Price</option>
+            <option value="rating">Rating</option>
+            <option value="popularity">Popularity</option>
+          </select>
+          <button class="clear-filters" (click)="clearFilters()">Clear Filters</button>
+        </div>
+      </header>
+      
+      <!-- Featured Courses -->
+      <!-- <section class="featured-courses">
+        <h2>Explore Topics and Skills</h2>
+        <div class="course-grid">
+          <div class="course-card" *ngFor="let course of featuredCourses">
+            <div
+              class="course-image"
+              [style.backgroundImage]="'url(' + course.thumbnail + ')'"
+            >
+              <h3>{{ course.title }}</h3>
+            </div>
+          </div>
+        </div>
+      </section> -->
+      
+
+      <!-- Course Grid -->
+      <div class="course-grid" *ngIf="courses.length > 0; else noCourses">
+        <div class="course-card" *ngFor="let course of filteredCourses">
+          <img [src]="course.thumbnail" alt="Course Thumbnail" class="course-thumbnail" />
+          <div class="course-details">
+            <h3>{{ course.title }}</h3>
+            <p>{{ course.description }}</p>
+            <div class="course-meta">
+              <span class="price">
+                {{ course.price ? "$" + course.price : "Free" }}
+              </span>
+              <span class="rating">⭐⭐⭐⭐⭐ ({{ course.reviews }} reviews)</span>
+            </div>
+          </div>
+          <button class="enroll-button" (click)="enroll(course)">Enroll Now</button>
+        </div>
+      </div>
+
+      <ng-template #noCourses>
+        <div class="no-courses">
+          <h2>No courses found</h2>
+          <p>Try adjusting your filters or search query.</p>
+        </div>
+      </ng-template>
+      
+      
+      
+      <!-- Pagination -->
+      <footer class="pagination" *ngIf="totalPages > 1">
+        <button 
+          (click)="changePage(-1)" 
+          [disabled]="currentPage === 1"
+        >
+          &laquo; Previous
+        </button>
+        <span>Page {{ currentPage }} of {{ totalPages }}</span>
+        <button 
+          (click)="changePage(1)" 
+          [disabled]="currentPage === totalPages"
+        >
+          Next &raquo;
+        </button>
+      </footer>
+    </div>
+</div>

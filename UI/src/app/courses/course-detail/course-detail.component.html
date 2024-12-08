@@ -1,1 +1,61 @@
-<p>course-detail works!</p>
+<div>
+<app-navbar></app-navbar>
+<div class="course-content">
+    <!-- Course Title Section -->
+    <header class="course-header">
+    <h1>{{ selectedCourse.title }}</h1>
+    <p>{{ selectedCourse.description }}</p>
+    <div class="progress-bar-container">
+        <label for="progress-bar">Progress: {{ selectedCourse.progress }}%</label>
+        <div class="progress-bar">
+        <div
+            class="progress"
+            [style.width]="selectedCourse.progress + '%'"
+        ></div>
+        </div>
+    </div>
+    </header>
+
+    <!-- Course Content Section -->
+    <div class="course-body">
+    <aside class="course-sidebar">
+        <h2>Course Outline</h2>
+        <ul>
+        <li
+            *ngFor="let module of selectedCourse.modules; let i = index"
+            [class.completed]="module.completed"
+        >
+            <div (click)="selectModule(i)" class="module-title">
+            <span>{{ module.title }}</span>
+            <span class="module-status">
+                {{ module.completed ? '✔ Completed' : '' }}
+            </span>
+            </div>
+        </li>
+        </ul>
+    </aside>
+
+    <main class="course-main">
+        <h2>{{ currentModule.title }}</h2>
+        <p>{{ currentModule.description }}</p>
+        <video controls class="module-video">
+        <source [src]="currentModule.videoUrl" type="video/mp4" />
+        Your browser does not support the video tag.
+        </video>
+        <button 
+        class="mark-complete-button" 
+        (click)="markModuleComplete()"
+        [disabled]="currentModule.completed"
+        >
+        {{ currentModule.completed ? 'Completed' : 'Mark as Complete' }}
+        </button>
+        <button 
+        *ngIf="currentModule.completed" 
+        class="next-button" 
+        (click)="goToNextModule()">
+        Next
+      </button>
+    </main>
+    </div>
+</div>
+</div>

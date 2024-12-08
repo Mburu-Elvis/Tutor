@@ -1,7 +1,7 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';  // Import FormsModule
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-login-modal',
   standalone: true,
@@ -10,6 +10,8 @@ import { FormsModule } from '@angular/forms';  // Import FormsModule
   styleUrl: './login-modal.component.css'
 })
 export class LoginModalComponent {
+  constructor(private router: Router) {}
+
   isModalVisible = false;  // Controls the visibility of the modal
   isLogin = true;  // Flag to toggle between Login and Sign Up
   userData = {
@@ -43,5 +45,12 @@ export class LoginModalComponent {
   // Close the modal
   closeModal() {
     this.isModalVisible = false;
+  }
+
+  goToCourseList() {
+    if (this.isLogin){
+      this.router.navigate(['/courses'])
+
+    }
   }
 }
