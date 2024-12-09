@@ -2,11 +2,12 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LoginModalComponent } from '../login-modal/login-modal.component';
+import { FooterComponent } from '../footer/footer.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [LoginModalComponent, CommonModule, FormsModule],
+  imports: [LoginModalComponent, CommonModule, FormsModule, FooterComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

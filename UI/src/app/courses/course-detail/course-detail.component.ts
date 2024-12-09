@@ -8,11 +8,12 @@ interface Module {
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from '../../navbar/navbar.component';
+import { FooterComponent } from '../../footer/footer.component';
 
 @Component({
   selector: 'app-course-detail',
   standalone: true,
-  imports: [CommonModule, NavbarComponent],
+  imports: [CommonModule, NavbarComponent, FooterComponent],
   templateUrl: './course-detail.component.html',
   styleUrl: './course-detail.component.css'
 })

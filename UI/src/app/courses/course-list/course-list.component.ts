@@ -19,11 +19,12 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from '../../navbar/navbar.component';
 import { Router } from '@angular/router';
+import { FooterComponent } from '../../footer/footer.component';
 
 @Component({
   selector: 'app-course-list',
   standalone: true,
-  imports: [CommonModule, FormsModule, NavbarComponent],
+  imports: [CommonModule, FormsModule, NavbarComponent, FooterComponent],
   templateUrl: './course-list.component.html',
   styleUrl: './course-list.component.css'
 })
