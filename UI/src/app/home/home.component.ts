@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LoginModalComponent } from '../login-modal/login-modal.component';
 import { FooterComponent } from '../footer/footer.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -12,6 +13,8 @@ import { FooterComponent } from '../footer/footer.component';
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
+  constructor(private router: Router) {}
+
   ngOnInit(): void {
     console.log('HomeComponent loaded');
   }
@@ -63,6 +66,10 @@ export class HomeComponent {
 
   getFloorValue(value: number): number {
     return Math.floor(value);
+  }
+
+  goToCourseList() {
+    this.router.navigate(['/courses']);
   }
 
 }
