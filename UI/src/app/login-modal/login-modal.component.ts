@@ -27,13 +27,53 @@ export class LoginModalComponent {
   }
 
   // Submit form logic based on login/signup
-  submitForm() {
-    if (this.isLogin) {
-      // Handle login logic
-      console.log('Login with:', this.userData.username, this.userData.password);
-    } else {
-      // Handle signup logic
-      console.log('Signup with:', this.userData.username, this.userData.email, this.userData.password, this.userData.confirmPassword);
+  async submitForm() {
+    const url = this.isLogin
+      ? 'https://stallion-holy-informally.ngrok-free.app/login'    // Replace with your login endpoint
+      : 'https://stallion-holy-informally.ngrok-free.app/signup'; // Replace with your signup endpoint
+
+    const payload = this.isLogin
+      ? { username: this.userData.username, password: this.userData.password }
+      : {
+          username: this.userData.username,
+          email: this.userData.email,
+          password: this.userData.password,
+          confirmPassword: this.userData.confirmPassword
+        };
+
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'ngrok-skip-browser-warning': 'hello',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log('Success:', result);
+
+        if (this.isLogin) {
+          // Navigate to courses on successful login
+          this.router.navigate(['/courses']);
+        } else {
+          // Handle successful signup, e.g., show a success message or log in the user
+          console.log('Signup successful, please log in.');
+        }
+
+        this.closeModal();
+      } else {
+        // Handle error responses
+        const errorData = await response.json();
+        this.errorMessage = errorData.message || 'An error occurred. Please try again.';
+        console.error('Error:', this.errorMessage);
+      }
+    } catch (error) {
+      // Handle network or unexpected errors
+      this.errorMessage = 'Network error. Please try again later.';
+      console.error('Network Error:', error);
     }
   }
 
